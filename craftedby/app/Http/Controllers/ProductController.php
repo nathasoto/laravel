@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ProductStoreRequest;
+use App\Http\Requests\ProductUpdateRequest;
 use App\Models\Product;
 use Illuminate\Http\Request;
 
@@ -12,8 +14,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::all();
-        return view('products.index', compact('products'));
+        return Product::all();
     }
 
     /**
@@ -28,35 +29,21 @@ class ProductController extends Controller
      * Store a newly created resource in storage.
      */
 
-    public function store(Request $request)
+    public function store(ProductStoreRequest $request)
     {
         //crea el producto en la BD
 
-
-        $validatedData = $request->validate([
-            'name' => 'required|string',
-            'price' => 'required|numeric',
-            'weight' => 'required|numeric',
-            'stock' => 'required|numeric',
-            'material' => 'required|string',
-            'history_anécdota' => 'required|string',
-            'image_path' => 'required|string',
-            'description' => 'required|string',
-            'categories_id' => 'required|string',
-            'shop_id' => 'required|string',
-        ]);
-
         $product = new Product();
-        $product->name = $validatedData['name'];
-        $product->price = $validatedData['price'];
-        $product->weight = $validatedData['weight'];
-        $product->stock = $validatedData['stock'];
-        $product->material = $validatedData['material'];
-        $product->history_anécdota = $validatedData['history_anécdota'];
-        $product->image_path = $validatedData['image_path'];
-        $product->description = $validatedData['description'];
-        $product->categories_id = $validatedData['categories_id'];
-        $product->shop_id = $validatedData['shop_id'];
+        $product->name = $request['name'];
+        $product->price = $request['price'];
+        $product->weight = $request['weight'];
+        $product->stock = $request['stock'];
+        $product->material = $request['material'];
+        $product->history_anécdota = $request['history_anécdota'];
+        $product->image_path = $request['image_path'];
+        $product->description = $request['description'];
+        $product->categories_id = $request['categories_id'];
+        $product->shop_id = $request['shop_id'];
 
         # Assign user_id of the authenticated user
 //        $product->user_id = Auth::id();
@@ -65,10 +52,8 @@ class ProductController extends Controller
         $product->user_id = $defaultUserId;
 
         $product->save();
-        $newProductId = $product->id;
 
-        return redirect()->route('products.show', ['product' => $product->id]);
-
+        return $product;
 
     }
 
@@ -92,30 +77,17 @@ class ProductController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(ProductUpdateRequest $request, string $id)
     {
         $product = Product::find($id);
 
         if (!$product) {
-            return response()->json(['message' => 'Product not found'], 404);
+            return response('',404);
         }
 
-        $validatedData = $request->validate([
-            'name' => 'required|string|max:255',
-            'price' => 'required|numeric|min:0',
-            'weight' => 'required|numeric|min:0',
-            'stock' => 'required|integer|min:0',
-            'material' => 'nullable|string|max:255',
-            'history_anecdote' => 'nullable|string|max:1000',
-            'image_path' => 'nullable|string|max:255',
-            'description' => 'nullable|string|max:1000',
-            'categories_id' => 'required|exists:categories,id',
-            'shop_id' => 'required|exists:shops,id',
-        ]);
+        $product->update($request->validated());
 
-        $product->update($validatedData);
-
-        return response()->json(['message' => 'Product updated successfully', 'product' => $product], 200);
+        return $product;
     }
 
     /**
@@ -126,11 +98,34 @@ class ProductController extends Controller
 
         $product = Product::find($id);
         if (!$product) {
-            return response()->json(['message' => 'Product not found'], 404);
+            return response('Product not found',404);
+//            return response()->json(['message' => 'Product not found'], 404);
         }
 
         $product->delete();
 
-        return response()->json(['message' => 'Product deleted successfully'], 200);
+            return response()->json(['message' => 'Product deleted successfully'], 200);
+    }
+
+    public function getProductsByCategory($category)
+    {
+        $products = Product::whereHas('categories', function ($query) use ($category) {
+            $query->where('name', $category);
+        })->get();
+
+        if ($products->isEmpty()) {
+            return response()->json(['message' => "Category {$category} not found"], 404);
+        }
+
+        return response()->json($products);
+
+    }
+    public function search($keyword)
+    {
+        $products = Product::where('name', 'like', "%$keyword%")->get();
+        if ($products->isEmpty()) {
+            return response()->json(['message' => 'No products found for the specified keyword.'], 404);
+        }
+        return response()->json($products);
     }
 }

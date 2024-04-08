@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('order_details', function (Blueprint $table) {
+        Schema::create('order_product', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->timestamps();
             $table->unsignedInteger('quantity')->between(1, 10);// siempre valores positivos

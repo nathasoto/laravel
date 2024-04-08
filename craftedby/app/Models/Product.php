@@ -21,7 +21,7 @@ class Product extends Model
     ];
 
 
-    public function category(): BelongsTo
+    public function categories(): BelongsTo
     {
         return $this->belongsTo(Category::class);
     }
@@ -45,6 +45,6 @@ class Product extends Model
     }
     public function orderDetail(): HasMany
     {
-        return $this->hasMany(OrderDetail::class);
+        return $this->hasMany(OrderProduct::class);
     }
 }

@@ -19,10 +19,12 @@ class Order extends Model
 
     public function user(): BelongsTo
     {
+        // Define a belongs-to relationship between the Order model and the User model
         return $this->belongsTo(User::class);
     }
     public function orderDetails()
     {
+        // Define a one-to-many relationship between the Order model and the OrderProduct model
         return $this->hasMany(OrderProduct::class);
     }
 }

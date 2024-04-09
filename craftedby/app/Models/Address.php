@@ -22,6 +22,7 @@ class Address extends Model
 
     public function user(): BelongsTo
     {
+        // Define a belongs-to relationship between the Address model and the User model
         return $this->belongsTo(User::class);
     }
 }

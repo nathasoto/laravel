@@ -13,6 +13,7 @@ class ProductSeeder extends Seeder
      */
     public function run(): void
     {
+        // Generates 10 fake products using the Product model factory and saves them to the database
         Product::factory(10)->create();
     }
 }

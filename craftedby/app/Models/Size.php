@@ -16,6 +16,7 @@ class size extends Model
 
     public function products(): BelongsToMany
     {
+        // Define a many-to-many relationship between the User model and the Product model
         return $this->belongsToMany(Product::class);
     }
 }

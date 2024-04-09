@@ -17,6 +17,7 @@ class Theme extends Model
 
     public function shops(): HasMany
     {
+        // Define a one-to-many relationship between the User model and the Shop model
         return $this->hasMany(Shop::class);
     }
 }

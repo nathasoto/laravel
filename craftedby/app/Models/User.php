@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
@@ -47,16 +48,19 @@ class User extends Authenticatable
     }
     public function product(): HasMany
     {
+        // Define a one-to-many relationship with the Product model
         return $this->hasMany(Product::class);
     }
 
     public function role(): BelongsToMany
     {
+        // Define a many-to-many relationship with the Role model
         return $this->belongsToMany(Role::class);
     }
 
     public function order(): HasMany
     {
+        // Define a one-to-many relationship with the Order model
         return $this->hasMany(Order::class);
     }
 }

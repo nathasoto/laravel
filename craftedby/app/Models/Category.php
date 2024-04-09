@@ -19,6 +19,7 @@ class Category extends Model
     ];
     public function products(): HasMany
     {
+        // Define a one-to-many relationship between the Shop model and the Product model
         return $this->hasMany(Product::class);
     }
 }

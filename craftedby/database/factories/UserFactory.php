@@ -24,11 +24,18 @@ class UserFactory extends Factory
     public function definition(): array
     {
         return [
+
+            // Generates a fake full name
             'name' => fake()->name(),
+            // Generates a fake last name
             'last_name' => fake()->lastName,
+            // Generates a unique and safe email address
             'email' => fake()->unique()->safeEmail(),
+            // Sets the email verification timestamp to the current time
             'email_verified_at' => now(),
+            // Hashes the password 'password' if not already hashed
             'password' => static::$password ??= Hash::make('password'),
+            // Generates a random string for the remember token
             'remember_token' => Str::random(10),
         ];
     }
@@ -38,6 +45,7 @@ class UserFactory extends Factory
      */
     public function unverified(): static
     {
+        // Sets the 'email_verified_at' attribute to null, indicating the email is unverified
         return $this->state(fn (array $attributes) => [
             'email_verified_at' => null,
         ]);

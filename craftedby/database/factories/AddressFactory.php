@@ -22,10 +22,13 @@ class AddressFactory extends Factory
 //            'user_id' => function () {
 //                return \App\Models\User::factory()->create()->id;
 //            },
+            // Generates a fake
             'street' => fake()->streetAddress,
             'city' => fake()->city,
             'postal_code' => fake()->postcode,
             'country' => fake()->country,
+
+            // Assigns a random user ID from existing users
             'user_id' => User::inRandomOrder()->first()->id,
         ];
     }

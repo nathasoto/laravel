@@ -21,16 +21,19 @@ class Shop extends Model
 
     public function theme(): BelongsTo
     {
+        // Define a belongs-to relationship between the Shop model and the Theme model
         return $this->belongsTo(Theme::class);
     }
 
     public function user(): BelongsTo
     {
+        // Define a belongs-to relationship between the Shop model and the User model
         return $this->belongsTo(User::class);
     }
 
     public function products(): HasMany
     {
+        // Define a one-to-many relationship between the Shop model and the Product model
         return $this->hasMany(Product::class);
     }
 }

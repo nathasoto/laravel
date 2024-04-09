@@ -552,6 +552,7 @@ class ComposerStaticInita9bbd3976012d5a30a5f6721e86c380d
         'App\\Http\\Controllers\\Controller' => __DIR__ . '/../..' . '/app/Http/Controllers/Controller.php',
         'App\\Http\\Controllers\\ProductController' => __DIR__ . '/../..' . '/app/Http/Controllers/ProductController.php',
         'App\\Http\\Controllers\\ProfileController' => __DIR__ . '/../..' . '/app/Http/Controllers/ProfileController.php',
+        'App\\Http\\Controllers\\UserController' => __DIR__ . '/../..' . '/app/Http/Controllers/UserController.php',
         'App\\Http\\Requests\\Auth\\LoginRequest' => __DIR__ . '/../..' . '/app/Http/Requests/Auth/LoginRequest.php',
         'App\\Http\\Requests\\ProductStoreRequest' => __DIR__ . '/../..' . '/app/Http/Requests/ProductStoreRequest.php',
         'App\\Http\\Requests\\ProductUpdateRequest' => __DIR__ . '/../..' . '/app/Http/Requests/ProductUpdateRequest.php',

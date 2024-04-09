@@ -14,6 +14,7 @@ class Color extends Model
 
     public function products()
     {
+        // Define a many-to-many relationship between the Shop model and the Product model
         return $this->belongsToMany(Product::class);
     }
 }

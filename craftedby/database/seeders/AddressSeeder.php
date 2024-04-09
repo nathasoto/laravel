@@ -13,6 +13,7 @@ class AddressSeeder extends Seeder
      */
     public function run(): void
     {
+        // Generates 10 fake addresses using the Address model factory and saves them to the database
         Address::factory(10)->create();
     }
 }

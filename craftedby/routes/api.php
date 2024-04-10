@@ -6,21 +6,6 @@ use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
-//Route::get('/user', function (Request $request) {
-//    return $request->user();
-//
-//})->middleware('auth:sanctum');
-
-// Group routes that require sanctum authentication
-Route::middleware(['auth:sanctum'])->group(function () {
-    // Route to get user details, accessible only to authenticated users
-    Route::get('/user', function (Request $request) {
-        return $request->user();
-    });
-    // Route to get all users, accessible only to authenticated users
-    Route::get('/users', [UserController::class, 'index']);
-});
-
 
 // Public routes accessible to all users
 Route::get('/products', [ProductController::class, 'index']);
@@ -39,3 +24,5 @@ Route::get('products/search/{keyword}', [ProductController::class, 'search']);
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
 Route::get('/me', [AuthController::class, 'me'])->middleware('auth:sanctum');
+
+

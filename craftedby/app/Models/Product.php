@@ -26,13 +26,13 @@ class Product extends Model
         // Define a belongs-to relationship between the Product model and the Category model
         return $this->belongsTo(Category::class);
     }
-    public function color(): BelongsToMany
+    public function colors(): BelongsToMany
     {
         // Define a many-to-many relationship between the Product model and the Color model
         return $this->belongsToMany(Color::class);
     }
 
-    public function size(): BelongsToMany
+    public function sizes(): BelongsToMany
     {
         // Define a many-to-many relationship between the Product model and the Size model
         return $this->belongsToMany(Size::class);

@@ -6,9 +6,11 @@ use App\Http\Requests\ProductStoreRequest;
 use App\Http\Requests\ProductUpdateRequest;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class ProductController extends Controller
 {
+    use AuthorizesRequests;
     /**
      * Display a listing of the resource.
      */
@@ -67,10 +69,21 @@ class ProductController extends Controller
     public function show(string $id)
     {
         // Find the product by its ID or throw a 404 error if not found
-        $product = Product::findOrFail($id);
+//        $product = Product::findOrFail($id);
+
+        // Find the product by its ID
+        $product = Product::find($id);
+
+
+        if (!$product) {
+            return response()->json(['message' => 'Product not found'], 404);
+        }
 
         // Return the 'products.show' view, passing the product data
-        return view('products.show', compact('product'));
+        return $product;
+
+
+
     }
 
     /**
@@ -91,8 +104,19 @@ class ProductController extends Controller
 
         // If the product doesn't exist, return a 404 response
         if (!$product) {
-            return response('',404);
+            return response('Product not found',404);
         }
+
+//        try {
+//            // Check authorization to update the product
+//            $this->authorize('update', $product);
+//        } catch (\Illuminate\Auth\Access\AuthorizationException $e) {
+//            // Handle the Authorization Exception here (e.g., redirect to a 403 error page)
+//            return response()->view('errors.403', [], 403);
+//        }
+
+
+
         // Update the product with validated request data
         $product->update($request->validated());
 
@@ -145,4 +169,6 @@ class ProductController extends Controller
         // Return JSON response with the found products
         return response()->json($products);
     }
+
+
 }

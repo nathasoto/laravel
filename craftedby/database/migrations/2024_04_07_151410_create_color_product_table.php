@@ -12,7 +12,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('product_color', function (Blueprint $table) {
+        Schema::create('color_product', function (Blueprint $table) {
             $table->foreignUuid('product_id')->constrained('products')->onDelete('cascade');
             $table->foreignUuid('color_id')->constrained('colors')->onDelete('cascade');
             $table->timestamps();
@@ -24,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('product_color');
+        Schema::dropIfExists('color_product');
     }
 };

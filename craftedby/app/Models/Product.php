@@ -48,9 +48,8 @@ class Product extends Model
         // Define a belongs-to relationship between the Product model and the Shop model
         return $this->belongsTo(Shop::class);
     }
-    public function orderDetail(): HasMany
+    public function orders(): BelongsToMany
     {
-        // Define a one-to-many relationship between the Product model and the OrderProduct model
-        return $this->hasMany(OrderProduct::class);
+        return $this->belongsToMany(Order::class,'order_products')->withPivot('quantity');
     }
 }

@@ -32,6 +32,8 @@ Route::get('/me', [AuthController::class, 'me'])->middleware('auth:sanctum');
 Route::get('/users', [UserController::class, 'index'])->middleware('auth:sanctum');
 
 
+Route::post('/users/{user_id}/shops', 'ShopController@store');
+
 
 
 

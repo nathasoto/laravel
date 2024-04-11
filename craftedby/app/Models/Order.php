@@ -2,9 +2,11 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Order extends Model
 {
@@ -14,17 +16,19 @@ class Order extends Model
     public $incrementing = false; /* because UUID (Universally Unique Identifier)*/
 
     protected $fillable = [
-        'total', 'shipping address', 'status', 'user_id',
+        'total', 'shipping_address', 'status', 'user_id',
     ];
+
+
 
     public function user(): BelongsTo
     {
         // Define a belongs-to relationship between the Order model and the User model
         return $this->belongsTo(User::class);
     }
-    public function orderDetails()
+    public function products(): BelongsToMany
     {
-        // Define a one-to-many relationship between the Order model and the OrderProduct model
-        return $this->hasMany(OrderProduct::class);
+
+        return $this->belongsToMany(Product::class, 'order_products')->withPivot('id');
     }
 }

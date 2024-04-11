@@ -53,4 +53,10 @@ class AuthController extends Controller
         return $request->user();
     }
 
+    public function Users(Request $request)
+    {
+        return $request->user();
+    }
+
+
 }

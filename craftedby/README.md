@@ -71,3 +71,6 @@ This project was developed by [Nathalie Soto](https://github.com/nathasoto).
 ## License
 
 This project is licensed under the [Student](https://opensource.org/licenses/MIT).
+
+## Documentation API 
+Project documentation [API](https://documenter.getpostman.com/view/31334199/2sA3Bhdtp3)

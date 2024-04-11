@@ -14,7 +14,8 @@ class ProductStoreRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return True;
+        // Check if the current user has permission to create the product
+        return auth()->user()->hasPermissionTo('product.create');
     }
 
     /**
@@ -31,7 +32,7 @@ class ProductStoreRequest extends FormRequest
             'weight' => 'required|numeric',
             'stock' => 'required|numeric',
             'material' => 'required|string',
-            'history_anécdota' => 'required|string',
+            'history' => 'required|string',
             'image_path' => 'required|string',
             'description' => 'required|string',
             'categories_id' => 'required|string',

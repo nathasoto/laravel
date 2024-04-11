@@ -17,7 +17,7 @@ return new class extends Migration
             $table->decimal('total', 10, 2);
             $table->text('shipping address');
             $table->string('status')->default('pending');
-            $table->foreignId('user_id')->constrained('users')
+            $table->foreignid('user_id')->constrained('users')
                 ->onDelete('cascade');
         });
     }

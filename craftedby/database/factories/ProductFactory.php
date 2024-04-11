@@ -35,7 +35,7 @@ class ProductFactory extends Factory
 
             // Generates a random material from the provided list
             'material' => fake()->randomElement(['Bois', 'Tissu', 'Verre', 'Métal', 'Pierre']),
-            'history_anécdota' => fake()->sentence,
+            'history' => fake()->sentence,
             'image_path' => fake()->imageUrl(),
             'description' => fake()->paragraph(3),
             'categories_id' => $categories_id,

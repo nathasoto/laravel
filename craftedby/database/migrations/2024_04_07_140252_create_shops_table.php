@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('specialties')->nullable();
             $table->string('zip_code')->nullable();
             $table->text("description",300)->nullable();
-            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+            $table->foreignid('user_id')->constrained('users')->onDelete('cascade');
             $table->foreignUuid('theme_id')->constrained('themes')->onDelete('cascade');
             $table->timestamps();
         });

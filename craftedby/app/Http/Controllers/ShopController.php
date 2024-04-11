@@ -2,26 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
+use App\Models\Shop;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
-class UserController extends Controller
+class ShopController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        // Verificar si el usuario autenticado tiene el rol de administrador
-        if (Auth::user()->hasRole('Admin')) {
-            // Si el usuario es un administrador, retornar todos los usuarios
-            $users = User::all();
-            return response()->json($users);
-        } else {
-            // Si el usuario no es un administrador, retornar un mensaje de error
-            return response()->json(['error' => 'Unauthorized'], 403);
-        }
+        return Shop::all();
     }
 
     /**

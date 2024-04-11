@@ -19,12 +19,12 @@ return new class extends Migration
             $table->integer('weight')->nullable();
             $table->integer('stock')->nullable();
             $table->string('material')->nullable();
-            $table->text('history_anécdota')->nullable();
+            $table->text('history')->nullable();
             $table->string('image_path')->nullable();
             $table->text("description",300);
             $table->foreignUuid('categories_id')->constrained('categories');
             $table->foreignUuid('shop_id')->constrained('shops')->onDelete('cascade');
-            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+            $table->foreignid('user_id')->constrained('users')->onDelete('cascade');
         });
     }
 

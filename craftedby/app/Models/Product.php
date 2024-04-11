@@ -17,7 +17,7 @@ class Product extends Model
     public $incrementing = false; /* because UUID (Universally Unique Identifier)*/
 
     protected $fillable = [
-        'name', 'price', 'weight', 'stock', 'material', 'history_anécdota', 'image_path', 'description', 'categories_id', 'shop_id',
+        'name', 'price', 'weight', 'stock', 'material', 'history', 'image_path', 'description', 'categories_id', 'shop_id',
     ];
 
 

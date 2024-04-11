@@ -6,6 +6,7 @@ use App\Http\Requests\ProductStoreRequest;
 use App\Http\Requests\ProductUpdateRequest;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ProductController extends Controller
 {
@@ -15,7 +16,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        return Product::all();
+          return Product::all();
     }
 
     /**
@@ -30,8 +31,10 @@ class ProductController extends Controller
      * Store a newly created resource in storage.
      */
 
-    public function store(ProductStoreRequest $request): Product
+    public function store(ProductStoreRequest $request)
     {
+
+
         // Create a new product instance
         $product = new Product();
 
@@ -41,24 +44,25 @@ class ProductController extends Controller
         $product->weight = $request['weight'];
         $product->stock = $request['stock'];
         $product->material = $request['material'];
-        $product->history_anécdota = $request['history_anécdota'];
+        $product->history= $request['history_anécdota'];
         $product->image_path = $request['image_path'];
         $product->description = $request['description'];
         $product->categories_id = $request['categories_id'];
         $product->shop_id = $request['shop_id'];
 
         # Assign user_id of the authenticated user
-//        $product->user_id = Auth::id();
+        $product->user_id = Auth::id();
 
         // Assign a default user_id (in this case, user with ID 5)
-        $defaultUserId = 5;
-        $product->user_id = $defaultUserId;
+//        $defaultUserId = 5;
+//        $product->user_id = $defaultUserId;
 
         // Save the product to the database
         $product->save();
 
         // Return the created product
         return $product;
+
 
     }
 
@@ -73,14 +77,18 @@ class ProductController extends Controller
         // Find the product by its ID
         $product = Product::find($id);
 
-
         if (!$product) {
             return response()->json(['message' => 'Product not found'], 404);
         }
 
+        // Check if the current user has permission to view the product
+        if (!Auth::user()->hasPermissionTo('products.show')) {
+            // If the user doesn't have permission, return an error response
+            return response()->json(['message' => 'Unauthorized'], 403);
+        }
+
         // Return the 'products.show' view, passing the product data
         return $product;
-
 
 
     }

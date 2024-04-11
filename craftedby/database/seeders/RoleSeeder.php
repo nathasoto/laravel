@@ -18,14 +18,16 @@ class RoleSeeder extends Seeder
         $role2 = Role::create(['name'=>'Artisan']);
         $role3 = Role::create(['name'=>'Authenticated_Client']);
 
-        permission::create(['name'=> 'artisan.product.index']);
-        permission::create(['name'=> 'artisan.product.create']);
-        permission::create(['name'=> 'artisan.product.edit']);
-        permission::create(['name'=> 'artisan.product.destroy']);
+        permission::create(['name'=> 'admin.users.index'])->syncRoles([$role1]);
 
-        permission::create(['name'=> 'artisan.shop']);
+        permission::create(['name'=> 'products.show'])->syncRoles([$role1,$role2]);
+        permission::create(['name'=> 'product.create'])->syncRoles([$role1,$role2]);
+        permission::create(['name'=> 'artisan.product.edit'])->syncRoles([$role1,$role2]);
+        permission::create(['name'=> 'artisan.product.destroy'])->syncRoles([$role1,$role2]);
 
-        permission::create(['name'=> 'client.product.index']);
+
+
+//        $role1 ->permissions()->attach([1,2,3,4,5,6]);
 
 
     }

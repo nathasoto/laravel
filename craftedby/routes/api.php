@@ -10,6 +10,7 @@ use Spatie\Permission\Models\Permission;
 
 // Public routes accessible to all users
 Route::get('/products', [ProductController::class, 'index']);
+//Route::get('/products', 'ProductController@index');
 Route::get('/products/{product}', [ProductController::class, 'show'])->middleware('auth:sanctum');
 Route::post('/products', [ProductController::class, 'store'])->middleware('auth:sanctum');
 

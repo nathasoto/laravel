@@ -72,5 +72,11 @@ This project was developed by [Nathalie Soto](https://github.com/nathasoto).
 
 This project is licensed under the [Student](https://opensource.org/licenses/MIT).
 
-## Documentation API 
-Project documentation [API](https://documenter.getpostman.com/view/31334199/2sA3Bhdtp3)
+## API Documentation
+
+Project documentation 
+
+1. [API Postman](https://documenter.getpostman.com/view/31334199/2sA3Bhdtp3)
+2. [API Swagger](http://127.0.0.1:8000/api/documentation)
+
+This documentation provides detailed information on each endpoint, including request parameters, responses, and examples of usage.

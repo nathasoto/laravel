@@ -8,15 +8,39 @@ use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
+/**
+ * @OA\Info(
+ *     title="Craftedby API",
+ *     version="1.0.0",
+ *     description="The Craftedby API provides comprehensive endpoints to manage products and user. It supports CRUD operations for products. User management features include user registration, authentication, and profile management. Additionally, the API supports product search, category filtering. Designed for scalability and performance, it ensures robust and secure interactions between clients and the eCommerce backend.",
+ *      @OA\Contact(
+ *          email="nathalie.soto@le-campus-numerique.fr"
+ *      ),
+ *     @OA\License(
+ *          name="MIT License",
+ *          url="https://opensource.org/licenses/MIT"
+ *      )
+ * )
+ */
+
 class ProductController extends Controller
 {
 
     /**
-     * Display a listing of the resource.
+     *  Display a listing of the resource.
+     *
+     * @return \Illuminate\Database\Eloquent\Collection
+     * @OA\Get(
+     *     path="/api/products",
+     *     summary="Get a list of all products",
+     *     tags={"Products"},
+     *     @OA\Response(response=200, description="Successful operation"),
+     *     @OA\Response(response=404, description="Product not found")
+     * )
      */
     public function index()
     {
-          return Product::all();
+        return Product::all();
     }
 
     /**
@@ -29,11 +53,37 @@ class ProductController extends Controller
 
     /**
      * Store a newly created resource in storage.
+     *
+     * @param  ProductStoreRequest  $request
+     * @return Product
+     *
+     * @OA\Post(
+     *     path="/api/products",
+     *     summary="Store a new product",
+     *     tags={"Products"},
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\JsonContent(
+     *              required={"name", "description", "story", "price", "stock", "image", "category"},
+     *              @OA\Property(property="name", type="string", example="Product name"),
+     *              @OA\Property(property="description", type="string", example="Product description"),
+     *              @OA\Property(property="story", type="string", example="Product story"),
+     *              @OA\Property(property="price", type="number", format="float", example=10.99),
+     *              @OA\Property(property="stock", type="integer", example=10),
+     *              @OA\Property(property="image", type="string", example="Product image"),
+     *              @OA\Property(property="category", type="string", example="Product category"),
+     *              @OA\Property(property="color", type="string", example="Product color"),
+     *              @OA\Property(property="material", type="string", example="Product material"),
+     *              @OA\Property(property="size", type="string", example="Product size")
+     *          )
+     *     ),
+     *     @OA\Response(response=200, description="Product stored"),
+     * )
      */
+
 
     public function store(ProductStoreRequest $request)
     {
-
 
         // Create a new product instance
         $product = new Product();
@@ -68,6 +118,23 @@ class ProductController extends Controller
 
     /**
      * Display the specified resource.
+     *
+     * @param  string  $id
+     * @return \Illuminate\Http\JsonResponse
+     *
+     * @OA\Get(
+     *     path="/api/products/{id}",
+     *     summary="Get a specific product by ID",
+     *     tags={"Products"},
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         required=true,
+     *         description="ID of the product"
+     *     ),
+     *     @OA\Response(response=200, description="Product found"),
+     *     @OA\Response(response=401, description="Product not found")
+     * )
      */
     public function show(string $id)
     {
@@ -101,9 +168,7 @@ class ProductController extends Controller
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
+
     public function update(ProductUpdateRequest $request, string $id)
     {
         // Find the product by its ID
@@ -121,9 +186,7 @@ class ProductController extends Controller
         return $product;
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
+
     public function destroy(string $id)
     {
         // Find the product by its ID
@@ -138,6 +201,7 @@ class ProductController extends Controller
         // Return a JSON response indicating successful deletion
             return response()->json(['message' => 'Product deleted successfully'], 200);
     }
+
 
     public function getProductsByCategory($category)
     {
@@ -154,6 +218,7 @@ class ProductController extends Controller
         return response()->json($products);
 
     }
+
     public function search($keyword)
     {
         // Search for products that contain the specified keyword in their name
